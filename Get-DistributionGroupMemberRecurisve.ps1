@@ -49,7 +49,6 @@ function Get-DistributionGroupMembersRecursive
     # Output Results
     end 
     {
-        Write-Host 'Processing Complete!' -ForegroundColor Green
         Return $AllMembers
     }
 }
