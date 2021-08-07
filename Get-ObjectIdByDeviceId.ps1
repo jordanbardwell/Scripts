@@ -29,7 +29,7 @@ else
 try 
 {
     Write-Host "Connecting to MgGraph..." -ForegroundColor Yellow
-    Connect-MgGraph -Scopes "Directory.Read.All"
+    Connect-MgGraph -Scopes "Directory.AccessAsUser.All"
 }
 catch 
 {
