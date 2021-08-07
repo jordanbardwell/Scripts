@@ -5,7 +5,7 @@ function Get-DistributionGroupMembersRecursive
     # Id of Distribution Group
     [Parameter(ValueFromPipeline=$true)]
     [string]
-    $Id
+    $PrimarySmtpAddress
     )
 
     # Validate Exchange Online is Connected
@@ -34,7 +34,7 @@ function Get-DistributionGroupMembersRecursive
     {
         Write-Host "Processing $Id" -ForegroundColor Yellow
         # Get All Distribution Group Members
-        $DistributionGroupMembers = Get-DistributionGroupMember -Identity $Id -ResultSize Unlimited
+        $DistributionGroupMembers = Get-DistributionGroupMember -Identity $PrimarySmtpAddress -ResultSize Unlimited
 
         # Add UserMailBox Recipients Members to AllMembers
         $AllMembers = $DistributionGroupMembers | Where-Object{$_.RecipientType -eq 'UserMailBox'}
@@ -42,7 +42,7 @@ function Get-DistributionGroupMembersRecursive
         # Check for Nested Distribution Groups
         if($DistributionGroupMembers | Where-Object{$_.RecipientType -like '*Group*'})
         {
-            $DistributionGroupMembers | Where-Object{$_.RecipientType -like '*Group*'} | ForEach-Object {Get-DistributionGroupMembersRecursive -Id $_.Id}
+            $DistributionGroupMembers | Where-Object{$_.RecipientType -like '*Group*'} | ForEach-Object {Get-DistributionGroupMembersRecursive -PrimarySmtpAddress $_.PrimarySmtpAddress}
         }
     }
 
