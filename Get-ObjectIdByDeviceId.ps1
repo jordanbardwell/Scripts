@@ -39,7 +39,7 @@ catch
 
 
 # Import AzureAD Device IDs
-$AzureADDeviceIDs = Get-Content -Path $AzureDeviceIDFilePath
+$AzureADDeviceIDs = Get-Content -Path $AzureDeviceIDFile
 Write-Host "Processing $($AzureADDeviceIDs.Count) Devices..." -ForegroundColor Yellow
 
 # Initialize Array
