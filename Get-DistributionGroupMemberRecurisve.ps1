@@ -32,7 +32,7 @@ function Get-DistributionGroupMembersRecursive
     # Process Distribution Group
     process 
     {
-        Write-Host "Processing $Id" -ForegroundColor Yellow
+        Write-Host "Processing $PrimarySmtpAddress" -ForegroundColor Yellow
         # Get All Distribution Group Members
         $DistributionGroupMembers = Get-DistributionGroupMember -Identity $PrimarySmtpAddress -ResultSize Unlimited
 
