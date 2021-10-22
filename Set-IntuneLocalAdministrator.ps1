@@ -1,6 +1,6 @@
 ## Variables
 $EnrollmentType = "EnrollmentTypeChangeMe"
-$ConfirmationCode = "ConfirmationCodeChangeMe"
+$ConfirmationID = "ConfirmationCodeChangeMe"
 $UserPrincipalName = "UserPrincipalNameChangeMe"
 $Type = "TypeChangeMe"
 $URI = "URIChangeMe"
@@ -180,7 +180,7 @@ function Send-ELAStatusUpdate{
     $Body = New-Object -TypeName psobject @{
         Status = $Status
         Type = $Type
-        ConfirmationID = $ConfirmationCode
+        ConfirmationID = $ConfirmationID
     } | ConvertTo-JSON
     Invoke-WebRequest -Uri $URI -Method Post -Body $Body -ContentType application/json
 }
@@ -189,18 +189,18 @@ function Send-ELAStatusUpdate{
 try
 {
     Write-Log "Enrollment Type: $EnrollmentType"
-    Write-Log "Confirmation Code: $ConfirmationCode"
+    Write-Log "Confirmation ID: $ConfirmationID"
     Write-Log "UserPrincipalName: $UserPrincipalName"
     Write-Log "Type: $Type"
     Write-Log "Running Set-IntuneLocalAdministrator..."
     Set-IntuneLocalAdministrator -Type $Type -UserPrincipalName $UserPrincipalName -EnrollmentType $EnrollmentType -ErrorAction Stop
     Write-Log "Executed Successfully."
     Write-Log "Sending Status to Mothership..."
-    Send-ELAStatusUpdate -URI $URI -ConfirmationID $ConfirmationCode -Type $Type -Status Success
+    Send-ELAStatusUpdate -URI $URI -ConfirmationID $ConfirmationID -Type $Type -Status Success
 }
 catch
 {
     Write-Log $PSItem.Exception -Level Error
     Write-Log "Sending Status to Mothership..."
-    Send-ELAStatusUpdate -URI $URI -ConfirmationID $ConfirmationCode -Type $Type -Status Failed    
+    Send-ELAStatusUpdate -URI $URI -ConfirmationID $ConfirmationID -Type $Type -Status Failed    
 }
