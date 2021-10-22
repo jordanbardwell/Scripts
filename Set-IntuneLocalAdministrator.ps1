@@ -178,11 +178,11 @@ function Send-ELAStatusUpdate{
     [string]$Status
     )
     $Body = New-Object -TypeName psobject @{
-        Status = "Success"
+        Status = $Status
         Type = $Type
         ConfirmationID = $ConfirmationCode
     } | ConvertTo-JSON
-    Invoke-WebRequest -Uri $URI -Method Post -Body $Body -ContentType json
+    Invoke-WebRequest -Uri $URI -Method Post -Body $Body -ContentType application/json
 }
 
 # Execute
