@@ -182,7 +182,7 @@ function Send-ELAStatusUpdate{
         Type = $Type
         ConfirmationID = $ConfirmationID
     } | ConvertTo-JSON
-    Invoke-WebRequest -Uri $URI -Method Post -Body $Body -ContentType application/json
+    Invoke-WebRequest -Uri $URI -Method Post -Body $Body -ContentType application/json -UseBasicParsing
 }
 
 # Execute
